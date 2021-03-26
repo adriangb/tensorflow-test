@@ -1,11 +1,14 @@
-import os
 import tensorflow as tf
 
 
-model = tf.keras.Sequential([tf.keras.Input((1,)), tf.keras.layers.Dense(1)])
-model.compile(loss="mse")
-model.fit(x=[[1]], y=[1])
+tf.io.gfile.makedirs("ram://test/inner")
 
-model.save("ram://test")
+with tf.io.gfile.GFile("ram://test/inner/file.txt", mode="w") as f:
+    f.write("data")
 
-print(tf.io.gfile.listdir("ram://test")
+for root, _, filenames in tf.io.gfile.walk("ram://test"):
+    for filename in filenames:
+        path = root + "/" + filename
+        print(f"root: {root}")
+        print(f"filename: {filename}")
+        print(f"path: {path}")
