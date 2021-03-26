@@ -12,5 +12,4 @@ for root, _, filenames in tf.io.gfile.walk("ram://test"):
         print(f"root: {root}")
         print(f"filename: {filename}")
         print(f"path: {path}")
-        with tf.io.gfile.GFile(path, mode="r") as f:
-            print(f.size())
+        assert path == "ram://test/inner/file.txt"
